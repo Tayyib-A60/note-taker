@@ -2,17 +2,20 @@ import './App.css';
 
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { WebSocketLink } from "@apollo/client/link/ws";
+
+import Login from './components/Login';
 import NotesList from './components/Notes';
+import { useState } from 'react';
 
 const createApolloClient = () => {
   return new ApolloClient({
     link: new WebSocketLink({
-      uri: "wss://engaged-leopard-75.hasura.app/v1/graphql",
+      uri: process.env.REACT_APP_hasura_db_url,
       options: {
         reconnect: true,
         connectionParams: {
           headers: {
-            'x-hasura-admin-secret': `gBfEDKPcYoc2UENh9jYD4UrRqYHse5ZRMf5JHUAGtGxlLRCoPtflaG9UzrIRFLrI`,
+            'x-hasura-admin-secret': process.env.REACT_APP_hasura_secret
           },
         },
       },
@@ -21,30 +24,27 @@ const createApolloClient = () => {
   });
 };
 
-function App() {
+
+const App = () => {
+  const [signedIn, setLoginStatus] = useState(false);
+  const [userUid, setUserUid] = useState('');
 
   const client = createApolloClient();
 
   return (
-    <ApolloProvider client={client}>
-      <div className="App">
-        <NotesList />
-        {/* <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header> */}
-      </div>
-    </ApolloProvider>
+      <ApolloProvider client={client}>
+        <div className="center">
+          <Login signedIn={signedIn} setLoginStatus={setLoginStatus} setUserUid={setUserUid} />
+          {
+            signedIn ?
+            <NotesList userUid={userUid}/> 
+            :
+            <div className='flex justify-center py-14'>
+              <h1 className='text-teal-200	text-center font-bold text-2xl'>Please sign in to use the app</h1>
+            </div>
+          }
+        </div>
+      </ApolloProvider>
   );
 }
 
