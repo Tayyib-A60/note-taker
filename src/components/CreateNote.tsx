@@ -55,7 +55,7 @@ const CreateNote = ({noteInput, setNoteInput, handleCreateNote, handleUpdateNote
                     </h3>
                     <form className="space-y-5 justify-center items-center" >
                         {
-                            !openEdit ?
+                            !openEdit && !isCreate ?
                             <div className="px-6 py-6 justify-center items-center">
                                 <div className="h-48 py-2 rounded border-2 border-purple-600 overflow-scroll">
                                     <p className="text-center text-justify m-3">{noteInput.summary}</p>
