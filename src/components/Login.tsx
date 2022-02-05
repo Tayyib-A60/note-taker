@@ -20,7 +20,7 @@ const Login = ({signedIn, setLoginStatus, setUserUid}) => {
                 console.log(error);
             }
         }
-    , []);
+    ,[setLoginStatus, setUserUid]);
 
     const storeUserInSessionStorage = ({displayName, email, uid}) => {
         sessionStorage.setItem('currentUser', JSON.stringify({ displayName, email, uid }));
