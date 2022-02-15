@@ -6,6 +6,7 @@ import { WebSocketLink } from "@apollo/client/link/ws";
 import Login from './components/Login';
 import NotesList from './components/Notes';
 import { useState } from 'react';
+import Subscribe from './components/Subscribe';
 
 const createApolloClient = () => {
   return new ApolloClient({
@@ -34,7 +35,7 @@ const App = () => {
   return (
       <ApolloProvider client={client}>
         <div className="center">
-          <Login signedIn={signedIn} setLoginStatus={setLoginStatus} setUserUid={setUserUid} />
+          {/* <Login signedIn={signedIn} setLoginStatus={setLoginStatus} setUserUid={setUserUid} />
           {
             signedIn ?
             <NotesList userUid={userUid}/> 
@@ -42,7 +43,9 @@ const App = () => {
             <div className='flex justify-center py-14'>
               <h1 className='text-teal-200	text-center font-bold text-2xl'>Please sign in to use the app</h1>
             </div>
-          }
+          } */}
+
+          <Subscribe />
         </div>
       </ApolloProvider>
   );
