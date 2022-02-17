@@ -44,6 +44,7 @@ const App = () => {
             </div>
           }
         </div>
+        <p>This are the new changes on main</p>
       </ApolloProvider>
   );
 }
