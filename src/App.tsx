@@ -44,6 +44,7 @@ const App = () => {
             </div>
           }
         </div>
+        <p>Bug fix changes on another branch</p>
       </ApolloProvider>
   );
 }
